@@ -89,6 +89,9 @@ with tab3:
     X = data.drop("Potability", axis=1)
     y = data["Potability"]
 
+    X = X.fillna(X.mean())
+    y = y.fillna(y.mode()[0])
+
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
