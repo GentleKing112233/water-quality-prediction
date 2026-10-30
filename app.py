@@ -25,7 +25,7 @@ This page showcases machine learning models for predicting water potability.
 Upload the **water_potability.csv** dataset to explore the models and visualizations.
 """)
 
-uploaded_file = st.file_uploader("Upload water_potability.csv", type=["csv"])
+uploaded_file = st.file_uploader("Upload water_potability.csv (optional)", type=["csv"])
 
 @st.cache_data
 def load_data(file):
@@ -34,8 +34,11 @@ def load_data(file):
 if uploaded_file is not None:
     data = load_data(uploaded_file)
 else:
-    st.info("Please upload the dataset to begin.")
-    st.stop()
+    try:
+        data = load_data("water_potability.csv")
+    except FileNotFoundError:
+        st.info("Please upload the dataset to begin.")
+        st.stop()
 
 tab1, tab2, tab3 = st.tabs(["Dataset Overview", "Visualizations", "Model Comparison"])
 
